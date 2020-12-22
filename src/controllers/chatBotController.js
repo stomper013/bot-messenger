@@ -4,7 +4,7 @@ import request from "request";
 let postWebhook = (req, res) =>{
     // Parse the request body from the POST
     let body = req.body;
-
+console.log(req)
     // Check the webhook event is from a Page subscription
     if (body.object === 'page') {
 
@@ -152,8 +152,6 @@ function handleMessage(sender_psid, message) {
 }
 
 let callSendAPIWithTemplate = (sender_psid) => {
-    // document fb message template
-    // https://developers.facebook.com/docs/messenger-platform/send-messages/templates
     let body = {
         "recipient": {
             "id": sender_psid
