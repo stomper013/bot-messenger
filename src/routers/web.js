@@ -1,6 +1,6 @@
 import express from "express";
 import homepageController from "../controllers/homePageController";
-import chatBotController from "../controllers/chatBotController";
+import * as chatBotController from "../controllers/chatBotController";
 
 let router = express.Router();
 
