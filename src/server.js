@@ -1,4 +1,3 @@
-
 require("dotenv").config();
 import express from 'express';
 import viewEngine from './config/viewEngine';
@@ -14,7 +13,7 @@ initWebRouter(app);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-let port = process.env.PORT || 3000;
+let port = process.env.PORT || 8000;
 
 app.listen(port, () => {
     console.log(`Run with port: ${port}`);
