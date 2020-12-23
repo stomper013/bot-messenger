@@ -121,6 +121,33 @@ function handleMessage(sender_psid, message) {
         response = {
             "text" : `You sent the message: "${message.text}". Now send`
         }
+    } else if (message.attachments) {
+        let attachment_url = message.attachments[0].payload.url;
+            response = {
+                "attachments" : {
+                    "type": "template",
+                    "payload": {
+                        "template_type": "generic",
+                        "elements": [{
+                            "title": "Is this the right pictures?",
+                            "subtitle": "Tap a button to answer.",
+                            "image_url": attachment_url,
+                            "buttons": [
+                                {
+                                    "type": "postback",
+                                    "title": "Yes!",
+                                    "payload": "yes",
+                                },
+                                {
+                                    "type": "postback",
+                                    "title": "No!",
+                                    "payload": "no",
+                                }
+                            ]
+                        }]
+                    }
+                }
+            }
     }
 
     callSendAPI(sender_psid, response);
