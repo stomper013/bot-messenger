@@ -1,7 +1,7 @@
 require("dotenv").config();
 import request from "request";
 
-let postWebhook = (req, res) =>{
+export let postWebhook = (req, res) =>{
     // Parse the request body from the POST
     let body = req.body;
 
@@ -39,7 +39,7 @@ let postWebhook = (req, res) =>{
     }
 };
 
-let getWebhook = (req, res) => {
+export let getWebhook = (req, res) => {
     // Your verify token. Should be a random string.
     let VERIFY_TOKEN = process.env.MY_VERIFY_FB_TOKEN;
 
@@ -64,53 +64,6 @@ let getWebhook = (req, res) => {
         }
     }
 };
-
-// Handles messages events
-// function handleMessage(sender_psid, received_message) {
-//     let response;
-//
-//     // Check if the message contains text
-//     if (received_message.text) {
-//
-//         // Create the payload for a basic text message
-//         response = {
-//             "text": `You sent the message: "${received_message.text}". Now send me an image!`
-//         }
-//     } else if (received_message.attachments) {
-//
-//     // Gets the URL of the message attachment
-//     let attachment_url = received_message.attachments[0].payload.url;
-//         response = {
-//             "attachment": {
-//                 "type": "template",
-//                 "payload": {
-//                     "template_type": "generic",
-//                     "elements": [{
-//                         "title": "Is this the right picture?",
-//                         "subtitle": "Tap a button to answer.",
-//                         "image_url": attachment_url,
-//                         "buttons": [
-//                             {
-//                                 "type": "postback",
-//                                 "title": "Yes!",
-//                                 "payload": "yes",
-//                             },
-//                             {
-//                                 "type": "postback",
-//                                 "title": "No!",
-//                                 "payload": "no",
-//                             }
-//                         ],
-//                     }]
-//                 }
-//             }
-//         }
-//
-// }
-//
-// // Sends the response message
-//     callSendAPI(sender_psid, response);
-// }
 
 // Handles messaging_postbacks events
 function handlePostback(sender_psid, received_postback) {
@@ -245,7 +198,7 @@ let callSendAPIWithTemplate = (sender_psid) => {
     });
 };
 
-module.exports = {
-  postWebhook: postWebhook,
-  getWebhook: getWebhook
-};
+// module.exports = {
+//   postWebhook: postWebhook,
+//   getWebhook: getWebhook
+// };
