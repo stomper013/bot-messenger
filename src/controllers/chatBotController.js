@@ -94,7 +94,7 @@ function callSendAPI(sender_psid, response) {
 
     // Send the HTTP request to the Messenger Platform
     request({
-        "uri": "https://graph.facebook.com/v9.0/me/messages",
+        "uri": "https://graph.facebook.com/v7.0/me/messages",
         "qs": { "access_token": process.env.FB_PAGE_TOKEN },
         "method": "POST",
         "json": request_body
@@ -116,8 +116,6 @@ function firstTrait(nlp, name) {
 }
 
 function handleMessage(sender_psid, message) {
-    //handle message for react, like press like button
-    // id like button: sticker_id 369239263222822
 
     if( message && message.attachments && message.attachments[0].payload){
         callSendAPI(sender_psid, "Thank you for watching my video !!!");
@@ -125,7 +123,7 @@ function handleMessage(sender_psid, message) {
         return;
     }
 
-    let entitiesArr = [ "wit$greetings", "wit$thanks", "wit$bye" ];
+    let entitiesArr = [  "wit$thanks", "wit$bye" ];
     let entityChosen = "";
     entitiesArr.forEach((name) => {
         let entity = firstTrait(message.nlp, name);
@@ -138,10 +136,10 @@ function handleMessage(sender_psid, message) {
         //default
         callSendAPI(sender_psid,`The bot is needed more training, try to say "thanks a lot" or "hi" to the bot` );
     }else{
-       if(entityChosen === "wit$greetings"){
-           //send greetings message
-           callSendAPI(sender_psid,'Hi there! This bot is created by Hary Pham. Watch more videos on HaryPhamDev Channel!');
-       }
+    //    if(entityChosen === "wit$greetings"){
+    //        //send greetings message
+    //        callSendAPI(sender_psid,'Hi there! This bot is created by Hary Pham. Watch more videos on HaryPhamDev Channel!');
+    //    }
        if(entityChosen === "wit$thanks"){
            //send thanks message
            callSendAPI(sender_psid,`You 're welcome!`);
@@ -185,7 +183,7 @@ let callSendAPIWithTemplate = (sender_psid) => {
     };
 
     request({
-        "uri": "https://graph.facebook.com/v9.0/me/messages",
+        "uri": "https://graph.facebook.com/v6.0/me/messages",
         "qs": { "access_token": process.env.FB_PAGE_TOKEN },
         "method": "POST",
         "json": body
