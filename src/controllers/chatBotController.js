@@ -107,9 +107,6 @@ function callSendAPI(sender_psid, response) {
     });
 }
 
-// function firstTrait(nlp, name) {
-//     return nlp && nlp.entities && nlp.entities[name] && nlp.entities[name][0];
-// }
 
 function firstTrait(nlp, name) {
     return nlp && nlp.entities && nlp.traits[name] && nlp.traits[name][0];
@@ -123,7 +120,7 @@ function handleMessage(sender_psid, message) {
         return;
     }
 
-    let entitiesArr = [  "wit$thanks", "wit$bye" ];
+    let entitiesArr = [ "wit$greetings", "wit$thanks", "wit$bye" ];
     let entityChosen = "";
     entitiesArr.forEach((name) => {
         let entity = firstTrait(message.nlp, name);
@@ -136,10 +133,10 @@ function handleMessage(sender_psid, message) {
         //default
         callSendAPI(sender_psid,`The bot is needed more training, try to say "thanks a lot" or "hi" to the bot` );
     }else{
-    //    if(entityChosen === "wit$greetings"){
-    //        //send greetings message
-    //        callSendAPI(sender_psid,'Hi there! This bot is created by Hary Pham. Watch more videos on HaryPhamDev Channel!');
-    //    }
+       if(entityChosen === "wit$greetings"){
+           //send greetings message
+           callSendAPI(sender_psid,'Hi there! This bot is created by Hary Pham. Watch more videos on HaryPhamDev Channel!');
+       }
        if(entityChosen === "wit$thanks"){
            //send thanks message
            callSendAPI(sender_psid,`You 're welcome!`);
@@ -152,8 +149,6 @@ function handleMessage(sender_psid, message) {
 }
 
 let callSendAPIWithTemplate = (sender_psid) => {
-    // document fb message template
-    // https://developers.facebook.com/docs/messenger-platform/send-messages/templates
     let body = {
         "recipient": {
             "id": sender_psid
