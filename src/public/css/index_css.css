@@ -1,0 +1,112 @@
+.box{   
+    box-sizing: border-box;
+    height: 100vh;
+    background-image: url("./images/background-0.jpg");
+}
+/* ============================================= */
+.box_1{
+    min-height: 100vh;
+}
+.gach{
+    border-bottom: 0.01em solid black;
+    
+}
+.box_1_1{
+    height: 6em;
+    text-align: center;
+}
+.box_1_1_text{
+    color: #32323d;
+    font-weight: 600;
+    font-family: 'Roboto', sans-serif;
+    padding: 1em 0 0 1.5em;
+}
+
+.box_1_2{
+    padding: 2em 0 0.5em 4em;
+    transition: all 0.5s;
+    text-decoration: none;
+    color: black;
+}
+.box_1_2:hover{
+    background-color: black;
+    opacity: 0.8;
+    color: white;
+     text-decoration: none;
+}
+.box_1_3{
+   padding: 1em 0 0.5em 4em;
+   margin-top: 15em;
+    transition: all 0.5s;
+}
+.box_1_3:hover{
+    background-color: black;
+    opacity: 0.4;
+    color: white;
+}
+.box_1_2_text{
+    color: #32323d;
+    font-weight: 400;
+    font-family: 'Roboto', sans-serif;
+    padding: 1em 0 0 1.5em;
+}
+.p_auto{
+    padding: 0.1em;
+}
+/* ====================================================== */
+.box_2{
+    height: 6em;
+    background-color: white;
+    text-align: left;
+}
+.box_2_1{
+    padding: 1.8em 0 0 4em;
+    text-indent: 1em;
+}
+.box_2_2{
+    padding: 1.8em 0 0 0em;
+    
+}
+.box_2_3{
+    padding: 1.8em 0 0 2em;  
+}
+.box_2_3 button{
+    width: 12em;
+}
+.box_2_3 .dropdown-menu{
+    width: 12em;
+}
+.box_2_2 input{
+    max-width: 40em;
+}
+.box_2_4{
+    padding: 4em 2em 4em 6em;
+}
+.box_2_5{
+    border: 0.04em solid black;
+    border-radius: 1em;
+    background-color: white;
+    height: 80vh;
+}
+.box_2_6{
+    
+    padding: 4em 2em 0 1em;
+}
+.box_2_7{
+    border: 0.04em solid black;
+    border-radius: 1em;
+    background-color: white;
+    height: 60vh;
+    text-align: center;
+    padding-top: 2em;
+}
+td img{
+    object-fit: cover;
+    overflow: hidden;
+}
+.box-img-background{
+    object-fit: cover;
+    overflow: hidden;
+
+}
+
