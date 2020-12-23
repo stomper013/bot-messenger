@@ -17,16 +17,16 @@ export let postWebhook = (req, res) =>{
 
 
             // Get the sender PSID
-            // let sender_psid = webhook_event.sender.id;
-            // console.log('Sender PSID: ' + sender_psid);
+            let sender_psid = webhook_event.sender.id;
+            console.log('Sender PSID: ' + sender_psid);
 
-            // // Check if the event is a message or postback and
-            // // pass the event to the appropriate handler function
-            // if (webhook_event.message) {
-            //     handleMessage(sender_psid, webhook_event.message);
-            // } else if (webhook_event.postback) {
-            //     handlePostback(sender_psid, webhook_event.postback);
-            // }
+            // Check if the event is a message or postback and
+            // pass the event to the appropriate handler function
+            if (webhook_event.message) {
+                handleMessage(sender_psid, webhook_event.message);
+            } else if (webhook_event.postback) {
+                handlePostback(sender_psid, webhook_event.postback);
+            }
 
         });
 
@@ -40,7 +40,6 @@ export let postWebhook = (req, res) =>{
 };
 
 export let getWebhook = (req, res) => {
-    console.log(11111)
     // Your verify token. Should be a random string.
     let VERIFY_TOKEN = process.env.MY_VERIFY_FB_TOKEN;
 
@@ -188,7 +187,8 @@ let callSendAPIWithTemplate = (sender_psid) => {
         "json": body
     }, (err, res, body) => {
         if (!err) {
-            // console.log('message sent!')
+            console.log('message sent!')
+            console.log(`My messengerfb: ${response}`)
         } else {
             console.error("Unable to send message:" + err);
         }
