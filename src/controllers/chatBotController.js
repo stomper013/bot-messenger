@@ -31,7 +31,7 @@ export let postWebhook = (req, res) =>{
         });
 
         // Return a '200 OK' response to all events
-        res.status(200).send(webhook_event);
+        res.status(200).send("webhook_event");
 
     } else {
         // Return a '404 Not Found' if event is not from a page subscription
@@ -40,6 +40,7 @@ export let postWebhook = (req, res) =>{
 };
 
 export let getWebhook = (req, res) => {
+    console.log(11111)
     // Your verify token. Should be a random string.
     let VERIFY_TOKEN = process.env.MY_VERIFY_FB_TOKEN;
 
