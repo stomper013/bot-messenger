@@ -94,7 +94,7 @@ function callSendAPI(sender_psid, response) {
 
     // Send the HTTP request to the Messenger Platform
     request({
-        "uri": "https://graph.facebook.com/v7.0/me/messages",
+        "uri": "https://graph.facebook.com/v6.0/me/messages",
         "qs": { "access_token": process.env.FB_PAGE_TOKEN },
         "method": "POST",
         "json": request_body
@@ -118,37 +118,36 @@ function handleMessage(sender_psid, message) {
         response = {
             "text" : `You sent the message: "${message.text}". Now send me an image!`
         }
-    }else if(message.attachments){
-        let attachments_url = message.attachments[0].payload.url;
+    // }else if(message.attachments){
+    //     let attachments_url = message.attachments[0].payload.url;
 
-        response = {
-            "attachment": {
-                "type": "template",
-                "payload": {
-                    "template_type": "generic",
-                    "elements": [{
-                        "title": "Is this the right picture?",
-                        "subtitle": "Tap a button to answer",
-                        "image_url": attachments_url,
-                        "buttons": [
-                            {
-                                "type": "postback",
-                                "title": "Yes!",
-                                "payload": "yes",
-                            },
-                            {
-                                "type": "postback",
-                                "title": "No!",
-                                "payload": "no",
-                            }
-                        ]
-                    }]
-                } 
-            }
-        },
-        callSendAPI(sender_psid, response);
-    }
-    
+    //     response = {
+    //         "attachment": {
+    //             "type": "template",
+    //             "payload": {
+    //                 "template_type": "generic",
+    //                 "elements": [{
+    //                     "title": "Is this the right picture?",
+    //                     "subtitle": "Tap a button to answer",
+    //                     "image_url": attachments_url,
+    //                     "buttons": [
+    //                         {
+    //                             "type": "postback",
+    //                             "title": "Yes!",
+    //                             "payload": "yes",
+    //                         },
+    //                         {
+    //                             "type": "postback",
+    //                             "title": "No!",
+    //                             "payload": "no",
+    //                         }
+    //                     ]
+    //                 }]
+    //             } 
+    //         }
+    //     }
+    // }
+    callSendAPI(sender_psid, response);
 
 
     // if( message && message.attachments && message.attachments[0].payload){
