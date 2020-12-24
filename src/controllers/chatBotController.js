@@ -226,3 +226,4 @@ let callSendAPIWithTemplate = (sender_psid) => {
         }
     });
 };
+}
