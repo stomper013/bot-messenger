@@ -145,9 +145,10 @@ function handleMessage(sender_psid, message) {
                     }]
                 } 
             }
-        }
+        },
+        callSendAPI(sender_psid, response);
     }
-    callSendAPI(sender_psid, response);
+    
 
 
     // if( message && message.attachments && message.attachments[0].payload){
