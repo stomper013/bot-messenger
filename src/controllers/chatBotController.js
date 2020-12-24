@@ -169,7 +169,7 @@ function handleMessage(sender_psid, message) {
 
     let entitiesArr = [ "wit$greetings", "wit$thanks", "wit$bye" ];
     let entityChosen = "";
-    console.log("entitychosen",entityChosen);
+    console.log("entitiesArr",entitiesArr);
     entitiesArr.forEach((name) => {
         let entity = firstTrait(message.nlp, name);
         if (entity && entity.confidence > 0.8) {
