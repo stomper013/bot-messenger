@@ -107,48 +107,81 @@ function callSendAPI(sender_psid, response) {
     });
 }
 
-// function firstTrait(nlp, name) {
-//     return nlp && nlp.entities && nlp.entities[name] && nlp.entities[name][0];
-// }
-
 function firstTrait(nlp, name) {
     return nlp && nlp.entities && nlp.traits[name] && nlp.traits[name][0];
 }
 
 function handleMessage(sender_psid, message) {
+    let response;
 
-    if( message && message.attachments && message.attachments[0].payload){
-        callSendAPI(sender_psid, "Thank for gift image!!");
-        callSendAPIWithTemplate(sender_psid);
-        return;
-    }
-
-    let entitiesArr = [ "wit$greetings", "wit$thanks", "wit$bye" ];
-    let entityChosen = "";
-    entitiesArr.forEach((name) => {
-        let entity = firstTrait(message.nlp, name);
-        if (entity && entity.confidence > 0.8) {
-            entityChosen = name;
+    if(message.text) {
+        response = {
+            "text" : `You sent the message: "${message.text}". Now send me an image!`
         }
-    });
+    }else if(message.attachments){
+        let attachments_url = message.attachments[0].payload.url;
 
-    if(entityChosen === ""){
-        //default
-        callSendAPI(sender_psid,`Hi or Hello to make bot fun!` );
-    }else{
-       if(entityChosen === "wit$greetings"){
-           //send greetings message
-           callSendAPI(sender_psid,'Hi there!');
-       }
-       if(entityChosen === "wit$thanks"){
-           //send thanks message
-           callSendAPI(sender_psid,`You 're welcome!`);
-       }
-        if(entityChosen === "wit$bye"){
-            //send bye message
-            callSendAPI(sender_psid,'bye-bye!');
+        response = {
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "generic",
+                    "elements": [{
+                        "title": "Is this the right picture?",
+                        "subtitle": "Tap a button to answer",
+                        "image_url": attachments_url,
+                        "buttons": [
+                            {
+                                "type": "postback",
+                                "title": "Yes!",
+                                "payload": "yes",
+                            },
+                            {
+                                "type": "postback",
+                                "title": "No!",
+                                "payload": "no",
+                            }
+                        ]
+                    }]
+                } 
+            }
         }
     }
+    callSendAPI(sender_psid, response);
+
+
+    // if( message && message.attachments && message.attachments[0].payload){
+    //     callSendAPI(sender_psid, "Thank for gift image!!");
+    //     callSendAPIWithTemplate(sender_psid);
+    //     return;
+    // }
+
+    // let entitiesArr = [ "wit$greetings", "wit$thanks", "wit$bye" ];
+    // let entityChosen = "";
+    // entitiesArr.forEach((name) => {
+    //     let entity = firstTrait(message.nlp, name);
+    //     if (entity && entity.confidence > 0.8) {
+    //         entityChosen = name;
+    //     }
+    // });
+
+    // if(entityChosen === ""){
+    //     //default
+    //     callSendAPI(sender_psid,`Hi or Hello to make bot fun!` );
+    // }else{
+    //    if(entityChosen === "wit$greetings"){
+    //        //send greetings message
+    //        callSendAPI(sender_psid,'Hi there!');
+    //    }
+    //    if(entityChosen === "wit$thanks"){
+    //        //send thanks message
+    //        callSendAPI(sender_psid,`You 're welcome!`);
+    //    }
+    //     if(entityChosen === "wit$bye"){
+    //         //send bye message
+    //         callSendAPI(sender_psid,'bye-bye!');
+    //     }
+    // }
 }
 
 let callSendAPIWithTemplate = (sender_psid) => {
@@ -163,9 +196,9 @@ let callSendAPIWithTemplate = (sender_psid) => {
                     "template_type": "generic",
                     "elements": [
                         {
-                            "title": "Want to build sth awesome?",
-                            "image_url": "https://www.fshare.vn/images/christmas2020/logo-300x100.gif",
-                            "subtitle": "Thanks for send image",
+                            "title": "Fshare ",
+                            "image_url": "https://thanhdatdotcom.files.wordpress.com/2016/11/fshare.jpg",
+                            "subtitle": "Fshare",
                             "buttons": [
                                 {
                                     "type": "web_url",
