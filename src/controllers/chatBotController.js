@@ -118,7 +118,7 @@ function firstTrait(nlp, name) {
 function handleMessage(sender_psid, message) {
 
     if( message && message.attachments && message.attachments[0].payload){
-        callSendAPI(sender_psid, "Thank you for watching my video !!!");
+        callSendAPI(sender_psid, "Thank for gift image!!");
         callSendAPIWithTemplate(sender_psid);
         return;
     }
@@ -193,8 +193,3 @@ let callSendAPIWithTemplate = (sender_psid) => {
         }
     });
 };
-
-// module.exports = {
-//   postWebhook: postWebhook,
-//   getWebhook: getWebhook
-// };
