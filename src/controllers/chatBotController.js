@@ -66,7 +66,21 @@ export let getWebhook = (req, res) => {
 };
 
 // Handles messaging_postbacks events
+function handlePostback(sender_psid, received_postback) {
+    let response;
 
+    // Get the payload for the postback
+    let payload = received_postback.payload;
+
+    // Set the response based on the postback payload
+    if (payload === 'yes') {
+        response = { "text": "Thanks!" }
+    } else if (payload === 'no') {
+        response = { "text": "Oops, try sending another image." }
+    }
+    // Send the message to acknowledge the postback
+    callSendAPI(sender_psid, response);
+}
 
 // Sends response messages via the Send API
 function callSendAPI(sender_psid, response) {
@@ -99,45 +113,44 @@ function callSendAPI(sender_psid, response) {
 //     return nlp && nlp.entities && nlp.traits[name] && nlp.traits[name][0];
 // }
 
-
 function handleMessage(sender_psid, message) {
 
-    // let response;
+    let response;
 
-    // if (message.text) {
-    //     response = {
-    //         "text" : `You sent the message: "${message.text}". Now send`
-    //     }
-    // } else if (message.attachments) {
-    //     let attachment_url = message.attachments[0].payload.url;
-    //         response = {
-    //             "attachments" : {
-    //                 "type": "template",
-    //                 "payload": {
-    //                     "template_type": "generic",
-    //                     "elements": [{
-    //                         "title": "Is this the right pictures?",
-    //                         "subtitle": "Tap a button to answer.",
-    //                         "image_url": attachment_url,
-    //                         "buttons": [
-    //                             {
-    //                                 "type": "postback",
-    //                                 "title": "Yes!",
-    //                                 "payload": "yes",
-    //                             },
-    //                             {
-    //                                 "type": "postback",
-    //                                 "title": "No!",
-    //                                 "payload": "no",
-    //                             }
-    //                         ]
-    //                     }]
-    //                 }
-    //             }
-    //         }
-    // }
+    if (message.text) {
+        response = {
+            "text" : `You sent the message: "${message.text}". Now send`
+        }
+    } else if (message.attachments) {
+        let attachment_url = message.attachments[0].payload.url;
+            response = {
+                "attachments" : {
+                    "type": "template",
+                    "payload": {
+                        "template_type": "generic",
+                        "elements": [{
+                            "title": "Is this the right pictures?",
+                            "subtitle": "Tap a button to answer.",
+                            "image_url": attachment_url,
+                            "buttons": [
+                                {
+                                    "type": "postback",
+                                    "title": "Yes!",
+                                    "payload": "yes",
+                                },
+                                {
+                                    "type": "postback",
+                                    "title": "No!",
+                                    "payload": "ni",
+                                }
+                            ]
+                        }]
+                    }
+                }
+            }
+    }
 
-    // callSendAPI(sender_psid, response);
+    callSendAPI(sender_psid, response);
 
     // if( message && message.attachments && message.attachments[0].payload){
     //     callSendAPI(sender_psid, "Thank you for watching my video !!!");
@@ -171,21 +184,6 @@ function handleMessage(sender_psid, message) {
     //         callSendAPI(sender_psid,'bye-bye!');
     //     }
     // }
-}
-function handlePostback(sender_psid, received_postback) {
-    // let response;
-
-    // // Get the payload for the postback
-    // let payload = received_postback.payload;
-
-    // // Set the response based on the postback payload
-    // if (payload === 'yes') {
-    //     response = { "text": "Thanks!" }
-    // } else if (payload === 'no') {
-    //     response = { "text": "Oops, try sending another image." }
-    // }
-    // // Send the message to acknowledge the postback
-    // callSendAPI(sender_psid, response);
 }
 
 // let callSendAPIWithTemplate = (sender_psid) => {
