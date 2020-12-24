@@ -164,13 +164,13 @@ let callSendAPIWithTemplate = (sender_psid) => {
                     "elements": [
                         {
                             "title": "Want to build sth awesome?",
-                            "image_url": "https://www.nexmo.com/wp-content/uploads/2018/10/build-bot-messages-api-768x384.png",
-                            "subtitle": "Watch more videos on my youtube channel ^^",
+                            "image_url": "https://www.fshare.vn/images/christmas2020/logo-300x100.gif",
+                            "subtitle": "Thanks for send image",
                             "buttons": [
                                 {
                                     "type": "web_url",
-                                    "url": "https://bit.ly/subscribe-haryphamdev",
-                                    "title": "Watch now"
+                                    "url": "https://bot-auto-messenger.herokuapp.com/",
+                                    "title": "Visit website"
                                 }
                             ]
                         }
