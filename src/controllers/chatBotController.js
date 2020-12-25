@@ -4,10 +4,9 @@ import request from "request";
 export let postWebhook = (req, res) =>{
     // Parse the request body from the POST
     let body = req.body;
-    console.log("req", req.tags);
 
     // Check the webhook event is from a Page subscription
-    if (body.object === 'page') {
+    // if (body.object === 'page') {
         // Iterate over each entry - there may be multiple if batched
         body.entry.forEach(function(entry) {
 
@@ -33,10 +32,10 @@ export let postWebhook = (req, res) =>{
         // Return a '200 OK' response to all events
         res.status(200).send('EVENT_RECEIVED');
 
-    } else {
-        // Return a '404 Not Found' if event is not from a page subscription
-        res.sendStatus(404);
-    }
+    // } else {
+    //     // Return a '404 Not Found' if event is not from a page subscription
+    //     res.sendStatus(404);
+    // }
 };
 
 export let getWebhook = (req, res) => {
