@@ -182,7 +182,8 @@ function handleMessage(sender_psid, message) {
     }else{
        if(entityChosen === "wit$greetings"){
            //send greetings message
-           callSendAPI(sender_psid,'Hi {{user_full_name}}! Can I help you?');
+           callSendAPI(sender_psid,'Hi `{{user_full_name}}`! Can I help you?');
+           consolog.log("fullname",{user_full_name});
        }
        if(entityChosen === "wit$thanks"){
            //send thanks message
