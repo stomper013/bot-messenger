@@ -216,7 +216,8 @@ let callSendAPIWithTemplate = (sender_psid) => {
                                 {
                                     "type": "web_url",
                                     "url": "https://bot-auto-messenger.herokuapp.com/",
-                                    "title": "Visit now"
+                                    "title": "Visit now",
+                                    "text":"Hello {{user_first_name}}!"
                                 }
                             ]
                         }
