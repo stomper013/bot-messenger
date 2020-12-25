@@ -9,7 +9,7 @@ export let postWebhook = (req, res) =>{
     // Check the webhook event is from a Page subscription
     if (body.object === 'page') {
 
-        if(body.tag === 'customer_chat_plugin')
+        if(body.tag.source === 'customer_chat_plugin')
         {
             body.entry.forEach(function(entry) {
 
