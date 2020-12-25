@@ -9,7 +9,7 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 
 let initWebRoutes = (app)=> {
-    router.get("/", homepageController.getHomePage);
+    router.get("/", homepageController.getHomepage);
     router.get("/webhook", chatBotController.getWebhook);
     router.post("/webhook", chatBotController.postWebhook);
 
