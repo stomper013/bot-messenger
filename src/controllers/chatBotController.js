@@ -7,8 +7,31 @@ export let postWebhook = (req, res) =>{
     console.log("body----", body);
 
     // Check the webhook event is from a Page subscription
-    if (body.object === 'page' || body.tags === 'customer_chat_plugin') {
+    if (body.object === 'page') {
 
+        if(body.tag === 'customer_chat_plugin')
+        {
+            body.entry.forEach(function(entry) {
+
+                // Gets the body of the webhook event
+                let webhook_event = entry.messaging[0];
+                console.log(webhook_event);
+    
+    
+                // Get the sender PSID
+                let sender_psid = webhook_event.sender.id;
+                console.log('Sender PSID: ' + sender_psid);
+    
+                // Check if the event is a message or postback and
+                // pass the event to the appropriate handler function
+                if (webhook_event.message) {
+                    handleMessage(sender_psid, webhook_event.message);
+                } else if (webhook_event.postback) {
+                    handlePostback(sender_psid, webhook_event.postback);
+                }
+    
+            });
+        }
         // Iterate over each entry - there may be multiple if batched
         body.entry.forEach(function(entry) {
 
