@@ -31,31 +31,31 @@ let sendMessageWelcomeNewUser = (sender_psid) => {
             };
 
             //send a quick reply
-            let response4 = {
-                "text": "What can I do to help you today?",
-                "quick_replies": [
-                    {
-                        "content_type": "text",
-                        "title": "Categories",
-                        "payload": "CATEGORIES",
-                    },
-                    {
-                        "content_type": "text",
-                        "title": "Lookup Order",
-                        "payload": "LOOKUP_ORDER",
-                    },
-                    {
-                        "content_type": "text",
-                        "title": "Talk to an agent",
-                        "payload": "TALK_AGENT",
-                    },
-                ]
-            };
+            // let response4 = {
+            //     "text": "What can I do to help you today?",
+            //     "quick_replies": [
+            //         {
+            //             "content_type": "text",
+            //             "title": "Categories",
+            //             "payload": "CATEGORIES",
+            //         },
+            //         {
+            //             "content_type": "text",
+            //             "title": "Lookup Order",
+            //             "payload": "LOOKUP_ORDER",
+            //         },
+            //         {
+            //             "content_type": "text",
+            //             "title": "Talk to an agent",
+            //             "payload": "TALK_AGENT",
+            //         },
+            //     ]
+            // };
 
             await sendMessage(sender_psid, response1);
             await sendMessage(sender_psid, response2);
             await sendMessage(sender_psid, response3);
-            await sendMessage(sender_psid, response4);
+            // await sendMessage(sender_psid, response4);
             resolve("done");
         } catch (e) {
             reject(e);
@@ -63,57 +63,57 @@ let sendMessageWelcomeNewUser = (sender_psid) => {
     });
 };
 
-let sendMessage = (sender_psid, response) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            await homepageService.markMessageRead(sender_psid);
-            await homepageService.sendTypingOn(sender_psid);
-            // Construct the message body
-            let request_body = {
-                "recipient": {
-                    "id": sender_psid
-                },
-                "message": response
-            };
+// let sendMessage = (sender_psid, response) => {
+//     return new Promise(async (resolve, reject) => {
+//         try {
+//             await homepageService.markMessageRead(sender_psid);
+//             await homepageService.sendTypingOn(sender_psid);
+//             // Construct the message body
+//             let request_body = {
+//                 "recipient": {
+//                     "id": sender_psid
+//                 },
+//                 "message": response
+//             };
 
-            // Send the HTTP request to the Messenger Platform
-            request({
-                "uri": "https://graph.facebook.com/v6.0/me/messages",
-                "qs": { "access_token": PAGE_ACCESS_TOKEN },
-                "method": "POST",
-                "json": request_body
-            }, (err, res, body) => {
-                if (!err) {
-                    resolve('message sent!')
-                } else {
-                    reject("Unable to send message:" + err);
-                }
-            });
-        } catch (e) {
-            reject(e);
-        }
-    });
-};
+//             // Send the HTTP request to the Messenger Platform
+//             request({
+//                 "uri": "https://graph.facebook.com/v6.0/me/messages",
+//                 "qs": { "access_token": PAGE_ACCESS_TOKEN },
+//                 "method": "POST",
+//                 "json": request_body
+//             }, (err, res, body) => {
+//                 if (!err) {
+//                     resolve('message sent!')
+//                 } else {
+//                     reject("Unable to send message:" + err);
+//                 }
+//             });
+//         } catch (e) {
+//             reject(e);
+//         }
+//     });
+// };
 
-let requestTalkToAgent = (sender_psid) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            //send a text message
-            let response1 = {
-                "text": "Ok. Someone real will be with you in a few minutes ^^"
-            };
+// let requestTalkToAgent = (sender_psid) => {
+//     return new Promise(async (resolve, reject) => {
+//         try {
+//             //send a text message
+//             let response1 = {
+//                 "text": "Ok. Someone real will be with you in a few minutes ^^"
+//             };
 
-            await sendMessage(sender_psid, response1);
+//             await sendMessage(sender_psid, response1);
 
-            //change this conversation to page inbox
-            let app = "page_inbox"
-            await passThreadControl(sender_psid, app);
-            resolve("done");
-        } catch (e) {
-            reject(e);
-        }
-    });
-};
+//             //change this conversation to page inbox
+//             let app = "page_inbox"
+//             await passThreadControl(sender_psid, app);
+//             resolve("done");
+//         } catch (e) {
+//             reject(e);
+//         }
+//     });
+// };
 
 // let passThreadControl = (sender_psid, app) => {
 //     return new Promise((resolve, reject) => {
@@ -195,25 +195,25 @@ let requestTalkToAgent = (sender_psid) => {
 //     })
 // };
 
-let showTVs = (sender_psid) => {
-    return new Promise((resolve, reject) => {
-        try {
-            resolve("done");
-        } catch (e) {
-            reject(e);
-        }
-    })
-};
+// let showTVs = (sender_psid) => {
+//     return new Promise((resolve, reject) => {
+//         try {
+//             resolve("done");
+//         } catch (e) {
+//             reject(e);
+//         }
+//     })
+// };
 
-let showPlaystation = (sender_psid) => {
-    return new Promise((resolve, reject) => {
-        try {
-            resolve("done");
-        } catch (e) {
-            reject(e);
-        }
-    })
-};
+// let showPlaystation = (sender_psid) => {
+//     return new Promise((resolve, reject) => {
+//         try {
+//             resolve("done");
+//         } catch (e) {
+//             reject(e);
+//         }
+//     })
+// };
 
 // let backToCategories = (sender_psid) => {
 //     sendCategories(sender_psid)
@@ -231,50 +231,50 @@ let showPlaystation = (sender_psid) => {
 //     });
 // };
 
-let takeControlConversation = (sender_psid) =>{
-    return new Promise((resolve, reject) => {
-        try {
-            // Construct the message body
-            let request_body = {
-                "recipient": {
-                    "id": sender_psid
-                },
-                "metadata": "Pass this conversation from page inbox to the bot - primary app"
-            };
+// let takeControlConversation = (sender_psid) =>{
+//     return new Promise((resolve, reject) => {
+//         try {
+//             // Construct the message body
+//             let request_body = {
+//                 "recipient": {
+//                     "id": sender_psid
+//                 },
+//                 "metadata": "Pass this conversation from page inbox to the bot - primary app"
+//             };
 
-            // Send the HTTP request to the Messenger Platform
-            request({
-                "uri": "https://graph.facebook.com/v6.0/me/take_thread_control",
-                "qs": { "access_token": PAGE_ACCESS_TOKEN },
-                "method": "POST",
-                "json": request_body
-            }, async (err, res, body) => {
-                if (!err) {
-                    //send messages
-                    await sendMessage(sender_psid, {"text": "The super bot came back !!!"});
-                    await backToMainMenu(sender_psid);
-                    resolve('message sent!')
-                } else {
-                    reject("Unable to send message:" + err);
-                }
-            });
-        } catch (e) {
-            reject(e);
-        }
-    });
-};
+//             // Send the HTTP request to the Messenger Platform
+//             request({
+//                 "uri": "https://graph.facebook.com/v6.0/me/take_thread_control",
+//                 "qs": { "access_token": PAGE_ACCESS_TOKEN },
+//                 "method": "POST",
+//                 "json": request_body
+//             }, async (err, res, body) => {
+//                 if (!err) {
+//                     //send messages
+//                     await sendMessage(sender_psid, {"text": "The super bot came back !!!"});
+//                     await backToMainMenu(sender_psid);
+//                     resolve('message sent!')
+//                 } else {
+//                     reject("Unable to send message:" + err);
+//                 }
+//             });
+//         } catch (e) {
+//             reject(e);
+//         }
+//     });
+// };
 
 module.exports = {
-    sendMessage: sendMessage,
+    // sendMessage: sendMessage,
     sendMessageWelcomeNewUser: sendMessageWelcomeNewUser,
     // sendCategories: sendCategories,
     // sendLookupOrder: sendLookupOrder,
-    requestTalkToAgent: requestTalkToAgent,
+    // requestTalkToAgent: requestTalkToAgent,
     // showHeadphones: showHeadphones,
-    showTVs: showTVs,
-    showPlaystation: showPlaystation,
+    // showTVs: showTVs,
+    // showPlaystation: showPlaystation,
     // backToCategories: backToCategories,
     // backToMainMenu: backToMainMenu,
     // passThreadControl: passThreadControl,
-    takeControlConversation: takeControlConversation
+    // takeControlConversation: takeControlConversation
 };
