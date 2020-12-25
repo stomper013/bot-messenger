@@ -51,7 +51,7 @@ let postWebhook = (req, res) => {
                     if (webhook_standby.message.text === "back" || webhook_standby.message.text === "exit") {
                         // call function to return the conversation to the primary app
                         // chatbotService.passThreadControl(webhook_standby.sender.id, "primary");
-                        chatbotService.takeControlConversation(webhook_standby.sender.id);
+                        // chatbotService.takeControlConversation(webhook_standby.sender.id);
                     }
                 }
 
