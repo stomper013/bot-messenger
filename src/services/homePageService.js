@@ -11,6 +11,45 @@ let handleSetupProfileAPI = () => {
                 "get_started": {
                     "payload": "GET_STARTED"
                 },
+                "persistent_menu": [
+                    {
+                        "locale": "default",
+                        "composer_input_disabled": false,
+                        "call_to_actions": [
+                            {
+                                "type": "postback",
+                                "title": "Talk to an agent",
+                                "payload": "TALK_AGENT"
+                            },
+                            {
+                                "type": "postback",
+                                "title": "Restart this conversation",
+                                "payload": "RESTART_CONVERSATION"
+                            },
+                            {
+                                "type": "nested",
+                                "title": "More info",
+                                "call_to_actions": [
+                                    {
+                                        "type": "web_url",
+                                        "title": "View Facebook Fan Page",
+                                        "url": "https://www.facebook.com/haryphamdev",
+                                        "webview_height_ratio": "full"
+                                    },
+                                    {
+                                        "type": "web_url",
+                                        "title": "View Youtube channel",
+                                        "url": "https://bit.ly/subscribe-haryphamdev",
+                                        "webview_height_ratio": "full"
+                                    },
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "whitelisted_domains": [
+                    "https://tech-shop-haryphamdev.herokuapp.com/"
+                ]
             };
             // Send the HTTP request to the Messenger Platform
             request({
@@ -54,7 +93,68 @@ let getFacebookUsername = (sender_psid) => {
     });
 };
 
+let sendTypingOn = (sender_psid) => {
+    return new Promise((resolve, reject) => {
+        try {
+            let request_body = {
+                "recipient": {
+                    "id": sender_psid
+                },
+                "sender_action": "typing_on"
+            };
+
+            let url = `https://graph.facebook.com/v6.0/me/messages?access_token=${PAGE_ACCESS_TOKEN}`;
+            request({
+                "uri": url,
+                "method": "POST",
+                "json": request_body
+
+            }, (err, res, body) => {
+                if (!err) {
+                    resolve("done!");
+                } else {
+                    reject("Unable to send message:" + err);
+                }
+            });
+
+        } catch (e) {
+            reject(e);
+        }
+    });
+};
+
+let markMessageRead = (sender_psid) => {
+    return new Promise((resolve, reject) => {
+        try {
+            let request_body = {
+                "recipient": {
+                    "id": sender_psid
+                },
+                "sender_action": "mark_seen"
+            };
+
+            let url = `https://graph.facebook.com/v6.0/me/messages?access_token=${PAGE_ACCESS_TOKEN}`;
+            request({
+                "uri": url,
+                "method": "POST",
+                "json": request_body
+
+            }, (err, res, body) => {
+                if (!err) {
+                    resolve("done!");
+                } else {
+                    reject("Unable to send message:" + err);
+                }
+            });
+        } catch (e) {
+            reject(e);
+        }
+    })
+};
+
 module.exports = {
     handleSetupProfileAPI: handleSetupProfileAPI,
     getFacebookUsername: getFacebookUsername,
+    markMessageRead: markMessageRead,
+    sendTypingOn: sendTypingOn
 };

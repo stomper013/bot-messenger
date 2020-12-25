@@ -1,15 +1,15 @@
 require("dotenv").config();
-import homepageService from "../services/homePageService";
-import chatbotService from "../services/chatBotService";
+// import homepageService from "../services/homePageService";
+import chatbotService from "../services/chatbotService";
+// import templateMessage from "../services/templateMessage";
 
 const MY_VERIFY_TOKEN = process.env.MY_VERIFY_FB_TOKEN;
 
-let getHomepage = (req, res) => {
-    console.log(req)
-    return res.render("homePages.ejs");
+let getHomePage = (req, res) => {
+    return res.render("homePages.ejs")
 };
 
-export let getWebhook = (req, res) => {
+let getWebhook = (req, res) => {
     // Your verify token. Should be a random string.
     let VERIFY_TOKEN = MY_VERIFY_TOKEN;
 
@@ -35,7 +35,7 @@ export let getWebhook = (req, res) => {
     }
 };
 
-export let postWebhook = (req, res) => {
+let postWebhook = (req, res) => {
     let body = req.body;
 
     // Checks this is an event from a page subscription
@@ -51,7 +51,7 @@ export let postWebhook = (req, res) => {
                     if (webhook_standby.message.text === "back" || webhook_standby.message.text === "exit") {
                         // call function to return the conversation to the primary app
                         // chatbotService.passThreadControl(webhook_standby.sender.id, "primary");
-                        // chatbotService.takeControlConversation(webhook_standby.sender.id);
+                        chatbotService.takeControlConversation(webhook_standby.sender.id);
                     }
                 }
 
@@ -82,19 +82,20 @@ export let postWebhook = (req, res) => {
     }
 };
 
+// Handles messages events
 let handleMessage = async (sender_psid, received_message) => {
     //check the incoming message is a quick reply?
     if (received_message && received_message.quick_reply && received_message.quick_reply.payload) {
         let payload = received_message.quick_reply.payload;
-        // if (payload === "CATEGORIES") {
-        //     await chatbotService.sendCategories(sender_psid);
+        if (payload === "CATEGORIES") {
+            await chatbotService.sendCategories(sender_psid);
 
-        // } else if (payload === "LOOKUP_ORDER") {
-        //     await chatbotService.sendLookupOrder(sender_psid);
+        } else if (payload === "LOOKUP_ORDER") {
+            await chatbotService.sendLookupOrder(sender_psid);
 
-        // } else if (payload === "TALK_AGENT") {
-        //     await chatbotService.requestTalkToAgent(sender_psid);
-        // }
+        } else if (payload === "TALK_AGENT") {
+            await chatbotService.requestTalkToAgent(sender_psid);
+        }
 
 
         return;
@@ -143,6 +144,7 @@ let handleMessage = async (sender_psid, received_message) => {
     await chatbotService.sendMessage(sender_psid, response);
 };
 
+// Handles messaging_postbacks events
 let handlePostback = async (sender_psid, received_postback) => {
     // Get the payload for the postback
     let payload = received_postback.payload;
@@ -153,23 +155,88 @@ let handlePostback = async (sender_psid, received_postback) => {
         case "RESTART_CONVERSATION":
             await chatbotService.sendMessageWelcomeNewUser(sender_psid);
             break;
+        case "TALK_AGENT":
+            await chatbotService.requestTalkToAgent(sender_psid);
+            break;
+        case "SHOW_HEADPHONES":
+            await chatbotService.showHeadphones(sender_psid);
+            break;
+        case "SHOW_TV":
+            await chatbotService.showTVs(sender_psid);
+            break;
+        case "SHOW_PLAYSTATION":
+            await chatbotService.showPlaystation(sender_psid);
+            break;
+        case "BACK_TO_CATEGORIES":
+            await chatbotService.backToCategories(sender_psid);
+            break;
+        case "BACK_TO_MAIN_MENU":
+            await chatbotService.backToMainMenu(sender_psid);
+            break;
         default:
             console.log("run default switch case")
 
     }
 };
 
-let handleSetupProfile = async (req, res) => {
-    try {
-        await homepageService.handleSetupProfileAPI();
-        return res.redirect("/");
-    } catch (e) {
-        console.log(e);
-    }
-};
+// let handleSetupProfile = async (req, res) => {
+//     try {
+//         await homepageService.handleSetupProfileAPI();
+//         return res.redirect("/");
+//     } catch (e) {
+//         console.log(e);
+//     }
+// };
 
+// let getSetupProfilePage = (req, res) => {
+//     return res.render("profile.ejs");
+// };
+
+// let getInfoOrderPage = (req, res) => {
+//     let facebookAppId = process.env.FACEBOOK_APP_ID;
+//     return res.render("infoOrder.ejs", {
+//         facebookAppId: facebookAppId
+//     });
+// };
+
+// let setInfoOrder = async (req, res) => {
+//     try {
+//         let customerName = "";
+//         if (req.body.customerName === "") {
+//             customerName = "Empty";
+//         } else customerName = req.body.customerName;
+
+//         // I demo response with sample text
+//         // you can check database for customer order's status
+
+//         let response1 = {
+//             "text": `---Info about your lookup order---
+//             \nCustomer name: ${customerName}
+//             \nEmail address: ${req.body.email}
+//             \nOrder number: ${req.body.orderNumber}
+//             `
+//         };
+
+//         let response2 = templateMessage.setInfoOrderTemplate();
+
+//         await chatbotService.sendMessage(req.body.psid, response1);
+//         await chatbotService.sendMessage(req.body.psid, response2);
+
+//         return res.status(200).json({
+//             message: "ok"
+//         });
+//     } catch (e) {
+//         console.log(e);
+//     }
+// };
 
 module.exports = {
-    getHomepage: getHomepage,
-    handleSetupProfile: handleSetupProfile,
-};
+    getHomePage: getHomePage,
+    getWebhook: getWebhook,
+    postWebhook: postWebhook,
+}
+//     handleSetupProfile: handleSetupProfile,
+//     getSetupProfilePage: getSetupProfilePage,
+//     getInfoOrderPage: getInfoOrderPage,
+//     setInfoOrder: setInfoOrder
+// };
