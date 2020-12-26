@@ -4,7 +4,7 @@ import request from "request";
 export let postWebhook = (req, res) =>{
     // Parse the request body from the POST
     let body = req.body;
-    console.log("body-----", body);
+    console.log("body-----", body?.entry?.messaging);
     // Check the webhook event is from a Page subscription
     if (body.object === 'page') {
         // Iterate over each entry - there may be multiple if batched
@@ -178,8 +178,6 @@ function handleMessage(sender_psid, message) {
     if(entityChosen === ""){
         //default
         callSendAPI(sender_psid,`The bot is needed more training, try to say "thanks a lot" or "hi" to the bot` );
-    }else if(entityChosen === "hi"){
-        callSendAPI(sender_psid,`dit me may`)
     }
     else{
        if(entityChosen === "wit$greetings"){
