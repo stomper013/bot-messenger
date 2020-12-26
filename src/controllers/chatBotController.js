@@ -4,8 +4,7 @@ import request from "request";
 export let postWebhook = (req, res) =>{
     // Parse the request body from the POST
     let body = req.body;
-    // body.map(value=>console.log("-----------------------",value))
-    console.log("body-----", body);
+    console.log(body.entry[0].messaging);
     // Check the webhook event is from a Page subscription
     if (body.object === 'page') {
         // Iterate over each entry - there may be multiple if batched
