@@ -13,6 +13,7 @@ export let postWebhook = (req, res) =>{
 
             // Gets the body of the webhook event
             let webhook_event = entry.messaging[0];
+            console.log('webhook event: ' + webhook_event);
             // let newMessage = new Messenger(body.entry.messaging[0]);
             // newMessage.save(function (err, message) {
             //     if(err) res.send(err);
@@ -168,7 +169,7 @@ function handleMessage(sender_psid, message) {
         callSendAPIWithTemplate(sender_psid);
         return;
     }
-    console.log('message' + message);
+    
     let entitiesArr = [ "wit$greetings", "wit$thanks", "wit$bye" ];
     let entityChosen = "";
     entitiesArr.forEach((name) => {
