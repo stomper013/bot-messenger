@@ -19,12 +19,12 @@ export let postWebhook = (req, res) =>{
 
             // Get the sender PSID
             let sender_psid = webhook_event.sender.id;
-            let sender = new message(sender_psid);
+            let sender = new messenger(sender_psid);
             sender.save(function (err, data) {
                 if (err) res.send(err);
                 res.json(data);
             });
-            
+
             console.log('Sender PSID: ' + sender_psid);
 
             // Check if the event is a message or postback and
