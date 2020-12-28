@@ -6,7 +6,7 @@ import messenger from "../model/messenger";
 export let postWebhook = (req, res) =>{
     // Parse the request body from the POST
     let body = req.body;
-    console.log('body-------------',body);
+    console.log('body-------------',body.entry[0].messaging[0]);
 
     // Check the webhook event is from a Page subscription
     if (body.object === 'page') {
