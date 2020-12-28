@@ -13,12 +13,12 @@ export let postWebhook = (req, res) =>{
 
             // Gets the body of the webhook event
             let webhook_event = entry.messaging[0];
-            console.log("123",body.entry.messaging);
-            let newMessage = new Messenger(body);
-            newMessage.save(function (err, message) {
-                if(err) res.send(err);
-                res.json(message);
-            });
+            console.log("123",body.entry.messaging[0]);
+            // let newMessage = new Messenger(body.entry.messaging[0]);
+            // newMessage.save(function (err, message) {
+            //     if(err) res.send(err);
+            //     res.json(message);
+            // });
 
             // Get the sender PSID
             let sender_psid = webhook_event.sender.id;
