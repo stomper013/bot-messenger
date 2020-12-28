@@ -2,50 +2,101 @@ require("dotenv").config();
 import request from "request";
 import messenger from "../model/messenger";
 
+// export let postWebhook = (req, res) =>{
+//     // Parse the request body from the POST
+//     let body = req.body;
+
+//     // Check the webhook event is from a Page subscription
+//     if (body.object === 'page') {
+
+//         // Iterate over each entry - there may be multiple if batched
+//         body.entry.forEach(function(entry) {
+
+//             // Gets the body of the webhook event
+//             let webhook_event = entry.messaging[0];
+//             console.log(webhook_event);
+
+
+//             // Get the sender PSID
+//             let sender_psid = webhook_event.sender.id;
+        
+//             console.log('Sender PSID: ' + sender_psid);
+
+//             // Check if the event is a message or postback and
+//             // pass the event to the appropriate handler function
+//             if (webhook_event.message) {
+//                 handleMessage(sender_psid, webhook_event.message);
+//             } else if (webhook_event.postback) {
+//                 handlePostback(sender_psid, webhook_event.postback);
+//             }
+
+//         });
+
+//         // Return a '200 OK' response to all events
+//         res.status(200).send('EVENT_RECEIVED');
+
+//     } else {
+//         // Return a '404 Not Found' if event is not from a page subscription
+//         res.sendStatus(404);
+//     }
+// };
+
 export let postWebhook = (req, res) =>{
-    // Parse the request body from the POST
-    let body = req.body;
-
-    // Check the webhook event is from a Page subscription
-    if (body.object === 'page') {
-
-        // Iterate over each entry - there may be multiple if batched
-        body.entry.forEach(function(entry) {
-
-            // Gets the body of the webhook event
-            let webhook_event = entry.messaging[0];
-            console.log(webhook_event);
-
-
-            // Get the sender PSID
-            let sender_psid = webhook_event.sender.id;
-            let sender = new messenger(req.body);
-            sender.save(function (err, data) {
-                if (err) res.send(err);
-                res.json(data);
+    if(req.body.object == 'page') {
+        req.body.entry.forEach(function(entry){
+            entry.messaging.forEach(function(event) {
+                if (event.postback) {
+                    processPostback(event);
+                }
             });
-
-            console.log('Sender PSID: ' + sender_psid);
-
-            // Check if the event is a message or postback and
-            // pass the event to the appropriate handler function
-            if (webhook_event.message) {
-                handleMessage(sender_psid, webhook_event.message);
-            } else if (webhook_event.postback) {
-                handlePostback(sender_psid, webhook_event.postback);
-            }
-
         });
-
-        // Return a '200 OK' response to all events
-        res.status(200).send('EVENT_RECEIVED');
-
-    } else {
-        // Return a '404 Not Found' if event is not from a page subscription
-        res.sendStatus(404);
+        res.sendStatus(200);
     }
-};
+}
 
+function processPostback(event) {
+    var senderId = event.sender.id;
+    var payload = event.postback.payload;
+  
+    if (payload === "Greeting") {
+      // Get user's first name from the User Profile API
+      // and include it in the greeting
+      request({
+        url: "https://graph.facebook.com/v2.6/" + senderId,
+        qs: {
+          access_token: process.env.PAGE_ACCESS_TOKEN,
+          fields: "first_name"
+        },
+        method: "GET"
+      }, function(error, response, body) {
+        var greeting = "";
+        if (error) {
+          console.log("Error getting user's name: " +  error);
+        } else {
+          var bodyObj = JSON.parse(body);
+          name = bodyObj.first_name;
+          greeting = "Hi " + name + ". ";
+        }
+        var message = greeting + "My name is SP Movie Bot. I can tell you various details regarding movies. What movie would you like to know about?";
+        sendMessage(senderId, {text: message});
+      });
+    }
+  }
+  function sendMessage(recipientId, message) {
+    request({
+      url: "https://graph.facebook.com/v2.6/me/messages",
+      qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
+      method: "POST",
+      json: {
+        recipient: {id: recipientId},
+        message: message,
+      }
+    }, function(error, response, body) {
+      if (error) {
+        console.log("Error sending message: " + response.error);
+      }
+    });
+  }
 export let getWebhook = (req, res) => {
     // Your verify token. Should be a random string.
     let VERIFY_TOKEN = process.env.MY_VERIFY_FB_TOKEN;
