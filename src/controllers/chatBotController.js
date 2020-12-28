@@ -17,7 +17,7 @@ export let postWebhook = (req, res) =>{
             // Gets the body of the webhook event
             let webhook_event = entry.messaging[0];
             console.log(webhook_event);
-            var newMessage = new messenger({value: webhook_event.sender.id});
+            var newMessage = new messenger({value: "234"});
             newMessage.save();
 
             // Get the sender PSID
