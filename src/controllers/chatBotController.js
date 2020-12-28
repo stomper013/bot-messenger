@@ -160,7 +160,7 @@ function firstTrait(nlp, name) {
 }
 
 function handleMessage(sender_psid, message) {
-    console.log('messengerhaddle: -----' + message + sender_psid);
+    console.log('messengerhaddle: -----' + message[0] + sender_psid);
     if( message && message.attachments && message.attachments[0].payload){
         callSendAPI(sender_psid, "Thank you for gift file!");
         callSendAPIWithTemplate(sender_psid);
