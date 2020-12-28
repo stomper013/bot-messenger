@@ -9,8 +9,12 @@ viewEngine(app);
 
 initWebRouter(app);
 
+const connectDB = require("./config/config");
+connectDB();
+
 let port = process.env.PORT || 8000;
 
 app.listen(port, () => {
     console.log(`Run with port: ${port}`);
 })
+
