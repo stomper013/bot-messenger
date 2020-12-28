@@ -62,7 +62,7 @@ function processPostback(event) {
       // Get user's first name from the User Profile API
       // and include it in the greeting
       request({
-        url: "https://graph.facebook.com/v2.6/" + senderId,
+        url: "https://graph.facebook.com/v6.0/" + senderId,
         qs: {
           access_token: process.env.PAGE_ACCESS_TOKEN,
           fields: "first_name"
@@ -97,6 +97,9 @@ function processPostback(event) {
       }
     });
   }
+
+
+
 export let getWebhook = (req, res) => {
     // Your verify token. Should be a random string.
     let VERIFY_TOKEN = process.env.MY_VERIFY_FB_TOKEN;
