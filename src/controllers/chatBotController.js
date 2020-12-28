@@ -1,25 +1,20 @@
 require("dotenv").config();
-const Messenger = require("../model/messenger");
 import request from "request";
 
 export let postWebhook = (req, res) =>{
     // Parse the request body from the POST
     let body = req.body;
-    
+
     // Check the webhook event is from a Page subscription
     if (body.object === 'page') {
+
         // Iterate over each entry - there may be multiple if batched
         body.entry.forEach(function(entry) {
 
             // Gets the body of the webhook event
             let webhook_event = entry.messaging[0];
-            console.log('webhook event: ' + body.entry);
+            console.log(webhook_event);
 
-            let newMessage = new Messenger(body.entry);
-            newMessage.save(function (err, message) {
-                if(err) res.send(err);
-                res.json(message);
-            });
 
             // Get the sender PSID
             let sender_psid = webhook_event.sender.id;
@@ -165,12 +160,13 @@ function firstTrait(nlp, name) {
 }
 
 function handleMessage(sender_psid, message) {
+
     if( message && message.attachments && message.attachments[0].payload){
         callSendAPI(sender_psid, "Thank you for gift file!");
         callSendAPIWithTemplate(sender_psid);
         return;
     }
-    
+
     let entitiesArr = [ "wit$greetings", "wit$thanks", "wit$bye" ];
     let entityChosen = "";
     entitiesArr.forEach((name) => {
@@ -183,8 +179,7 @@ function handleMessage(sender_psid, message) {
     if(entityChosen === ""){
         //default
         callSendAPI(sender_psid,`The bot is needed more training, try to say "thanks a lot" or "hi" to the bot` );
-    }
-    else{
+    }else{
        if(entityChosen === "wit$greetings"){
            //send greetings message
            callSendAPI(sender_psid,'Hi there! Can I help you?');
