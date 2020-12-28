@@ -5,7 +5,7 @@ import request from "request";
 export let postWebhook = (req, res) =>{
     // Parse the request body from the POST
     let body = req.body;
-    console.log("body-------",body.entry[0].messaging);
+    // console.log("body-------",body.entry[0].messaging);
     // Check the webhook event is from a Page subscription
     if (body.object === 'page') {
         // Iterate over each entry - there may be multiple if batched
@@ -148,6 +148,7 @@ function callSendAPI(sender_psid, response) {
     }, (err, res, body) => {
         if (!err) {
             console.log('message sent!');
+            console.log('messenger facebook', response)
         } else {
             console.error("Unable to send message:" + err);
         }
