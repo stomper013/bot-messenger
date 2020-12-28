@@ -19,6 +19,12 @@ export let postWebhook = (req, res) =>{
 
             // Get the sender PSID
             let sender_psid = webhook_event.sender.id;
+            let sender = new message(sender_psid);
+            sender.save(function (err, data) {
+                if (err) res.send(err);
+                res.json(data);
+            });
+            
             console.log('Sender PSID: ' + sender_psid);
 
             // Check if the event is a message or postback and
@@ -134,11 +140,6 @@ function handleMessage(sender_psid, message) {
     if(entityChosen === ""){
         //default
         callSendAPI(sender_psid,`The bot is needed more training, try to say "thanks a lot" or "hi" to the bot` );
-        
-        let newMessage = new messenger(message);
-        newMessage.save(function (err, mess) {
-            res.json(mess);
-        });
     }else{
        if(entityChosen === "wit$greetings"){
            //send greetings message
