@@ -148,7 +148,6 @@ function callSendAPI(sender_psid, response) {
     }, (err, res, body) => {
         if (!err) {
             console.log('message sent!');
-            console.log('messenger facebook', response)
         } else {
             console.error("Unable to send message:" + err);
         }
@@ -161,7 +160,7 @@ function firstTrait(nlp, name) {
 }
 
 function handleMessage(sender_psid, message) {
-
+    console.log('messengerhaddle: -----' + message + sender_psid);
     if( message && message.attachments && message.attachments[0].payload){
         callSendAPI(sender_psid, "Thank you for gift file!");
         callSendAPIWithTemplate(sender_psid);
