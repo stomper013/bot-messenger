@@ -13,7 +13,7 @@ export let postWebhook = (req, res) =>{
 
             // Gets the body of the webhook event
             let webhook_event = entry.messaging[0];
-            console.log("123",body.entry.messaging[0]);
+            console.log("123",webhook_event.message);
             // let newMessage = new Messenger(body.entry.messaging[0]);
             // newMessage.save(function (err, message) {
             //     if(err) res.send(err);
