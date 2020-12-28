@@ -1,17 +1,14 @@
 require("dotenv").config();
 import request from "request";
 import messenger from "../model/messenger";
+
 export let postWebhook = (req, res) =>{
     // Parse the request body from the POST
     let body = req.body;
 
     // Check the webhook event is from a Page subscription
     if (body.object === 'page') {
-        let test = new messenger(req.body);
-        test.save(function (err, data){
-            if (err) res.send(err);
-            res.json(data);
-        });
+
         // Iterate over each entry - there may be multiple if batched
         body.entry.forEach(function(entry) {
 
@@ -69,6 +66,7 @@ export let getWebhook = (req, res) => {
     }
 };
 
+
 // Handles messaging_postbacks events
 function handlePostback(sender_psid, received_postback) {
     let response;
@@ -77,35 +75,13 @@ function handlePostback(sender_psid, received_postback) {
     let payload = received_postback.payload;
 
     // Set the response based on the postback payload
-    if(payload === 'GET_STARTED'){
-        response = askTemplate('Are you a Cat or Dog Person?');
-        callSendAPI(sender_psid, response);
+    if (payload === 'yes') {
+        response = { "text": "Thanks!" }
+    } else if (payload === 'no') {
+        response = { "text": "Oops, try sending another image." }
     }
     // Send the message to acknowledge the postback
-    
-}
-const askTemplate = (text) => {
-    return {
-        "attachment":{
-            "type":"template",
-            "payload":{
-                "template_type":"button",
-                "text": text,
-                "buttons":[
-                    {
-                        "type":"postback",
-                        "title":"Cats",
-                        "payload":"CAT_PICS"
-                    },
-                    {
-                        "type":"postback",
-                        "title":"Dogs",
-                        "payload":"DOG_PICS"
-                    }
-                ]
-            }
-        }
-    }
+    callSendAPI(sender_psid, response);
 }
 
 // Sends response messages via the Send API
@@ -158,6 +134,12 @@ function handleMessage(sender_psid, message) {
     if(entityChosen === ""){
         //default
         callSendAPI(sender_psid,`The bot is needed more training, try to say "thanks a lot" or "hi" to the bot` );
+        
+        let newMessage = new messenger(message);
+        newMessage.save(function (err, mess) {
+            if (err) res.send(err);
+            res.json(mess);
+        });
     }else{
        if(entityChosen === "wit$greetings"){
            //send greetings message
