@@ -137,7 +137,6 @@ function handleMessage(sender_psid, message) {
         
         let newMessage = new messenger(message);
         newMessage.save(function (err, mess) {
-            if (err) res.send(err);
             res.json(mess);
         });
     }else{
