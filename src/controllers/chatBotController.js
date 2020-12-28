@@ -13,7 +13,7 @@ export let postWebhook = (req, res) =>{
 
             // Gets the body of the webhook event
             let webhook_event = entry.messaging[0];
-            console.log(webhook_event);
+            console.log("123",webhook_event);
 
 
             // Get the sender PSID
@@ -160,7 +160,6 @@ function firstTrait(nlp, name) {
 }
 
 function handleMessage(sender_psid, message) {
-    console.log('messengerhaddle: -----' + message[0] + sender_psid);
     if( message && message.attachments && message.attachments[0].payload){
         callSendAPI(sender_psid, "Thank you for gift file!");
         callSendAPIWithTemplate(sender_psid);
