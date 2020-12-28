@@ -5,7 +5,7 @@ import request from "request";
 export let postWebhook = (req, res) =>{
     // Parse the request body from the POST
     let body = req.body;
-    // console.log("body-------",body.entry[0].messaging);
+    console.log("body-----" + body);
     // Check the webhook event is from a Page subscription
     if (body.object === 'page') {
         // Iterate over each entry - there may be multiple if batched
@@ -13,7 +13,6 @@ export let postWebhook = (req, res) =>{
 
             // Gets the body of the webhook event
             let webhook_event = entry.messaging[0];
-            console.log("123",webhook_event.message);
             // let newMessage = new Messenger(body.entry.messaging[0]);
             // newMessage.save(function (err, message) {
             //     if(err) res.send(err);
