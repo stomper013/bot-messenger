@@ -1,10 +1,11 @@
 require("dotenv").config();
+const Messenger = require("../model/messenger");
 import request from "request";
 
 export let postWebhook = (req, res) =>{
     // Parse the request body from the POST
     let body = req.body;
-    console.log(body.entry[0].messaging);
+    console.log("body-------",body.entry[0].messaging);
     // Check the webhook event is from a Page subscription
     if (body.object === 'page') {
         // Iterate over each entry - there may be multiple if batched
