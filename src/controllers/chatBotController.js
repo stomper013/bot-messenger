@@ -24,16 +24,17 @@ export let postWebhook = (req, res) =>{
             console.log(webhook_event);
 
         // Add database in mongoose
-            messenger.findById({ sender_id: sender_id}, function(err) {
+            messenger.find({sender_id: sender_id, recipient_id: recipient_id}, function(err) {
                 if (err) {
                     console.log(err);
                 }else {
-                    var newMessage = new messenger({
-                        message: mess, 
-                        sender_id: sender_id, 
-                        recipient_id: recipient_id, 
-                        timestamp: timestamp});
-                    newMessage.save();
+                    // var newMessage = new messenger({
+                    //     message: mess, 
+                    //     sender_id: sender_id, 
+                    //     recipient_id: recipient_id, 
+                    //     timestamp: timestamp});
+                    // newMessage.save();
+                    console.log("sure!!!!!!!!!!");
                 }
             })
             
