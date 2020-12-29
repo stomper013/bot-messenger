@@ -24,11 +24,13 @@ export let postWebhook = (req, res) =>{
             console.log(webhook_event);
 
         // Add database in mongoose
-            messenger.findOne({sender_id: sender_id, recipient_id: recipient_id}, function(err) {
+            messenger.findOne({sender_id: sender_id, recipient_id: recipient_id}, function(err, res) {
                 if (err) {
                     // add new message
                     console.log(err);
                 }else {
+                    
+                    res.message.push(mess);
                     var newMessage = new messenger({
                         message: mess, 
                         sender_id: sender_id, 
@@ -37,11 +39,11 @@ export let postWebhook = (req, res) =>{
                     newMessage.save();
                     console.log('update!!!!!!!!!');
 
-                    newMessage.update(
-                        { sender_id: sender_id }, 
-                        { $push: { message: mess } },
-                        done
-                    );
+                    // newMessage.update(
+                    //     { _id: res._id }, 
+                    //     { $push: { message: res.message } },
+                    //     done
+                    // );
                 }
             })
             
