@@ -47,7 +47,6 @@ export let postWebhook = (req, res) =>{
                     messenger.update(
                         { _id: res._id }, 
                         { $push: { message: res.message } },
-                        done
                     );
                 }
             })
