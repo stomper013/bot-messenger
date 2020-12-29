@@ -35,7 +35,7 @@ export let postWebhook = (req, res) =>{
                     // add new message
                     console.log(err);
                 }else {
-                    console.log(res);
+                    console.log(1111, res);
                     // var newMessage = new messenger({
                     //     message: mess, 
                     //     sender_id: sender_id, 
@@ -43,8 +43,8 @@ export let postWebhook = (req, res) =>{
                     //     timestamp: timestamp});
                     // newMessage.save();
                     // console.log('update!!!!!!!!!');
-
-                    newMessage.update(
+                    
+                    messenger.update(
                         { _id: res._id }, 
                         { $push: { message: res.message } },
                         done
