@@ -22,35 +22,35 @@ export let postWebhook = (req, res) =>{
             // Gets the body of the webhook event
             let webhook_event = entry.messaging[0];
             console.log(webhook_event);
-            var newMessage = new messenger({
-                message: mess, 
-                sender_id: sender_id, 
-                recipient_id: recipient_id, 
-                timestamp: timestamp});
-            newMessage.save();
+            // var newMessage = new messenger({
+            //     message: mess, 
+            //     sender_id: sender_id, 
+            //     recipient_id: recipient_id, 
+            //     timestamp: timestamp});
+            // newMessage.save();
 
         // Add database in mongoose
-            // messenger.findOne({sender_id: sender_id, recipient_id: recipient_id}, function(err, res) {
-            //     if (err) {
-            //         // add new message
-            //         console.log(err);
-            //     }else {
-                    
-            //         var newMessage = new messenger({
-            //             message: mess, 
-            //             sender_id: sender_id, 
-            //             recipient_id: recipient_id, 
-            //             timestamp: timestamp});
-            //         newMessage.save();
-            //         console.log('update!!!!!!!!!');
+            messenger.findOne({sender_id: sender_id, recipient_id: recipient_id}, function(err, res) {
+                if (err) {
+                    // add new message
+                    console.log(err);
+                }else {
+                    res.message.push(mess);
+                    // var newMessage = new messenger({
+                    //     message: mess, 
+                    //     sender_id: sender_id, 
+                    //     recipient_id: recipient_id, 
+                    //     timestamp: timestamp});
+                    // newMessage.save();
+                    // console.log('update!!!!!!!!!');
 
-            //         newMessage.update(
-            //             { _id: res._id }, 
-            //             { $push: { message: res.message } },
-            //             done
-            //         );
-            //     }
-            // })
+                    newMessage.update(
+                        { _id: res._id }, 
+                        { $push: { message: res.message } },
+                        done
+                    );
+                }
+            })
             
 
             // Get the sender PSID
