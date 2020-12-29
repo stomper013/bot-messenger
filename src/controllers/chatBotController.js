@@ -7,12 +7,12 @@ export let postWebhook = (req, res) =>{
     // Parse the request body from the POST
 
     let body = req.body;
-    // console.log('body-------------',body.entry[0].messaging[0].message.text);
+    console.log('body-------------',body);
 
     var message = body.entry[0].messaging[0].message.text;
-    var sender_id = body.entry[0].message[0].sender.id;
-    var recipient_id = body.entry[0].message[0].recipient.recipient.id;
-    var timestamp = body.entry[0].message[0].timestamp;
+    var sender_id = entry.messaging[0].sender.id;
+    var recipient_id = entry.messaging[0].recipient.recipient.id;
+    var timestamp = entry.messaging[0].timestamp;
 
     // Check the webhook event is from a Page subscription
     if (body.object === 'page') {
