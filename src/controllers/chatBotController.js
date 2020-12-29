@@ -5,14 +5,9 @@ import messenger from "../model/messenger";
 
 export let postWebhook = (req, res) =>{
     // Parse the request body from the POST
-
     let body = req.body;
     console.log('body-------------',body);
-
-    var message = body.entry[0].messaging[0].message.text;
-    var sender_id = entry.messaging[0].sender.id;
-    var recipient_id = entry.messaging[0].recipient.recipient.id;
-    var timestamp = entry.messaging[0].timestamp;
+    var val = body.entry[0].messaging[0].message.text;
 
     // Check the webhook event is from a Page subscription
     if (body.object === 'page') {
@@ -23,18 +18,13 @@ export let postWebhook = (req, res) =>{
             // Gets the body of the webhook event
             let webhook_event = entry.messaging[0];
             console.log(webhook_event);
-
-            // var newMessage = new messenger({
-            //     sender_id: sender_id, 
-            //     recipient_id: recipient_id, 
-            //     timestamp: timestamp, 
-            //     message: message});
-            // newMessage.save();
+            var newMessage = new messenger({value: val, dmm: val});
+            newMessage.save();
 
             // Get the sender PSID
             let sender_psid = webhook_event.sender.id;
         
-            // console.log('Sender PSID: ' + sender_psid);
+            console.log('Sender PSID: ' + sender_psid);
 
             // Check if the event is a message or postback and
             // pass the event to the appropriate handler function
