@@ -30,7 +30,7 @@ export let postWebhook = (req, res) =>{
                     console.log(err);
                 }else {
                     var newMessage = new messenger({
-                        message: mess, 
+                        message: {text: sender_id}, 
                         sender_id: sender_id, 
                         recipient_id: recipient_id, 
                         timestamp: timestamp});
