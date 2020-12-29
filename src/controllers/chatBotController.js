@@ -36,7 +36,6 @@ export let postWebhook = (req, res) =>{
                     console.log(err);
                 }else {
                     console.log(res);
-                    res.message.push(mess);
                     // var newMessage = new messenger({
                     //     message: mess, 
                     //     sender_id: sender_id, 
