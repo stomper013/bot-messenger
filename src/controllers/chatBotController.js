@@ -28,7 +28,7 @@ export let postWebhook = (req, res) =>{
                     console.log(obj);
                 }else{
 
-                    if(obj == id_mongo){
+                    if(obj === id_mongo){
                         console.log('ok');
                     }else{
                         console.log('no');
