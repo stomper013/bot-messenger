@@ -12,20 +12,20 @@ export let postWebhook = (req, res) =>{
     var sender_id = body.entry[0].messaging[0].sender.id;
     var recipient_id = body.entry[0].messaging[0].recipient.id;
     var timestamp = body.entry[0].messaging[0].timestamp;
-     
+    var id_mongo = '123';
 
     // Check the webhook event is from a Page subscription
     if (body.object === 'page') {
 
         // Iterate over each entry - there may be multiple if batched
 
-        messenger.findOne({_id: '5fec28ce317ed74665195172'}, function (err, res) {
+        messenger.findOne({id_mongo: id_mongo});{
             if (err) {
                 console.log(err);
             }else{
-                console.log('ok')
+                console.log('ok');
             }
-        })
+        }
         body.entry.forEach(function(entry) {
 
             // Gets the body of the webhook event
