@@ -21,14 +21,21 @@ export let postWebhook = (req, res) =>{
 
         messenger.findOne({_id: id_mongo}, function(err,obj) { 
             if(err){
-                console.log("dcmm1");
+                console.log(err);
             }else{
                 if(obj==null)
                 {
-                    console.log("dcmmmmmmmmmmm11111:"+obj);
+                    console.log(obj);
 
                 }else{
-                    console.log("dcmmmmmmmmmmm:"+obj);
+
+                    if(id_mongo == obj){
+                        console.log('ok');
+                    }else{
+                        console.log('no');
+                    }
+                    
+                    console.log("_id: "+obj);
 
                 }
                 
