@@ -26,15 +26,14 @@ export let postWebhook = (req, res) =>{
                 if(obj==null)
                 {
                     console.log(obj);
-
                 }else{
 
-                    if(id_mongo == obj){
+                    if(obj == id_mongo){
                         console.log('ok');
                     }else{
                         console.log('no');
                     }
-                    
+
                     console.log("_id: "+obj);
 
                 }
