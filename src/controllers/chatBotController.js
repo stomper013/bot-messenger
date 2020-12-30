@@ -19,7 +19,7 @@ export let postWebhook = (req, res) =>{
 
         // Iterate over each entry - there may be multiple if batched
 
-        messenger.findById({_id: '5fec28ce317ed74665195172'}, function (err, res) {
+        messenger.findOne({_id: '5fec28ce317ed74665195172'}, function (err, res) {
             if (err) {
                 console.log(err);
             }else{
