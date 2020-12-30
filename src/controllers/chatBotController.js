@@ -12,7 +12,7 @@ export let postWebhook = (req, res) =>{
     var sender_id = body.entry[0].messaging[0].sender.id;
     var recipient_id = body.entry[0].messaging[0].recipient.id;
     var timestamp = body.entry[0].messaging[0].timestamp;
-    var id_mongo = '5fec32de317ed74665195174';
+    var id_mongo = '5fec354d317ed74665195176';
 
     // Check the webhook event is from a Page subscription
     if (body.object === 'page') {
@@ -23,7 +23,15 @@ export let postWebhook = (req, res) =>{
             if(err){
                 console.log("dcmm1");
             }else{
-                console.log("dcmmmmmmmmmmm:"+obj);
+                if(obj==null)
+                {
+                    console.log("dcmmmmmmmmmmm11111:"+obj);
+
+                }else{
+                    console.log("dcmmmmmmmmmmm:"+obj);
+
+                }
+                
             }
         });
         body.entry.forEach(function(entry) {
