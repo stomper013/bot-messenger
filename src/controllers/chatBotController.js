@@ -21,26 +21,24 @@ export let postWebhook = (req, res) =>{
 
             // Gets the body of the webhook event
             let webhook_event = entry.messaging[0];
-
             // console.log(webhook_event);
-
-            // Add database in mongoose
-            messenger.findOne({}, function(err, res) {
+            
+        // Add database in mongoose
+            messenger.findOne({sender_id: sender_id, recipient_id: recipient_id}, function(err, res) {
                 if (err) {
                     console.log(err);
                 }else {
-                    var _id = res._id;
                     var newMessage = new messenger({
                         message: mess, 
                         sender_id: sender_id, 
                         recipient_id: recipient_id, 
                         timestamp: timestamp});
                     newMessage.save();
-                    console.log(_id);
-                                
+                    console.log('update!!!!!!!!!');
+                    
+                
                 }
-
-            
+            })
             
 
             // Get the sender PSID
