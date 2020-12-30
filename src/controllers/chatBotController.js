@@ -23,7 +23,7 @@ export let postWebhook = (req, res) =>{
             if(err){
                 console.log("dcmm1");
             }else{
-                console.log('ok')
+                console.log(obj);
             }
         });
         body.entry.forEach(function(entry) {
