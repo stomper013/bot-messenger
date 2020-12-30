@@ -24,18 +24,18 @@ export let postWebhook = (req, res) =>{
             if(err){
                 console.log(err);
             }else{
-                if(obj)
+                if(obj==null)
                 {
-                    console.log("objjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
+                    var newMessage = new messenger({
+                        message: {text: mess}, 
+                        sender_id: sender_id, 
+                        recipient_id: recipient_id, 
+                        timestamp: timestamp});
+                    newMessage.save();
                 }else{
 
-                    if(!obj == id_mongo){
-                        var newMessage = new messenger({
-                            message: {text: mess}, 
-                            sender_id: sender_id, 
-                            recipient_id: recipient_id, 
-                            timestamp: timestamp});
-                        newMessage.save();
+                    if(obj._id == id_mongo){
+                        console.log("update dmm");
                     }else{
                         console.log('yes');
                     }
