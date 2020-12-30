@@ -20,7 +20,7 @@ export let postWebhook = (req, res) =>{
         // Iterate over each entry - there may be multiple if batched
 
         messenger.findOne({_id: id_mongo}, function(err,obj) { 
-            console.log('------------------',obj);
+            console.log('------------------',typeof obj);
             if(err){
                 console.log(err);
             }else{
