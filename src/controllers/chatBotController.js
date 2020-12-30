@@ -35,7 +35,7 @@ export let postWebhook = (req, res) =>{
                         sender_id: sender_id, 
                         recipient_id: recipient_id, 
                         timestamp: timestamp});
-                    newMessage.update();
+                    newMessage.save();
                     console.log('update!!!!!!!!!');
                     
                 }
