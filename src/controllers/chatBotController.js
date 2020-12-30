@@ -24,7 +24,7 @@ export let postWebhook = (req, res) =>{
             if(err){
                 console.log(err);
             }else{
-                if(obj.id_mongo  === undefined)
+                if(obj)
                 {
                     console.log("objjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
                 }else{
