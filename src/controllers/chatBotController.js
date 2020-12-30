@@ -25,7 +25,7 @@ export let postWebhook = (req, res) =>{
             // console.log(webhook_event);
             
         // Add database in mongoose
-            messenger.updateOne({id_messages: "1234"}, function(err, res) {
+            messenger.find({id_messages: "1234"}, function(err, res) {
                 if (err) {
                     console.log(err);
                 }else {
