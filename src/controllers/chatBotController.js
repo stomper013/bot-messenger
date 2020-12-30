@@ -6,12 +6,13 @@ import messenger from "../model/messenger";
 export let postWebhook = (req, res) =>{
     // Parse the request body from the POST
     let body = req.body;
-    // console.log('body-------------',body.entry[0].messaging[0].message);
+    console.log('body-------------',body);
 
     var mess = body.entry[0].messaging[0].message.text;
     var sender_id = body.entry[0].messaging[0].sender.id;
     var recipient_id = body.entry[0].messaging[0].recipient.id;
     var timestamp = body.entry[0].messaging[0].timestamp;
+    // var id_messages = 
 
     // Check the webhook event is from a Page subscription
     if (body.object === 'page') {
@@ -24,21 +25,21 @@ export let postWebhook = (req, res) =>{
             // console.log(webhook_event);
             
         // Add database in mongoose
-            messenger.findOne({sender_id: sender_id, recipient_id: recipient_id}, function(err, res) {
-                if (err) {
-                    console.log(err);
-                }else {
-                    var newMessage = new messenger({
-                        message: mess, 
-                        sender_id: sender_id, 
-                        recipient_id: recipient_id, 
-                        timestamp: timestamp});
-                    newMessage.save();
-                    console.log('update!!!!!!!!!');
+            // messenger.findOne({sender_id: sender_id, recipient_id: recipient_id}, function(err, res) {
+            //     if (err) {
+            //         console.log(err);
+            //     }else {
+            //         var newMessage = new messenger({
+            //             message: mess, 
+            //             sender_id: sender_id, 
+            //             recipient_id: recipient_id, 
+            //             timestamp: timestamp});
+            //         newMessage.save();
+            //         console.log('update!!!!!!!!!');
                     
                 
-                }
-            })
+            //     }
+            // })
             
 
             // Get the sender PSID
