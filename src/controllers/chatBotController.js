@@ -18,6 +18,14 @@ export let postWebhook = (req, res) =>{
     if (body.object === 'page') {
 
         // Iterate over each entry - there may be multiple if batched
+
+        messenger.findById({_id: '5fec28ce317ed74665195172'}, function (err, res) {
+            if (err) {
+                console.log(err);
+            }else{
+                console.log('ok')
+            }
+        })
         body.entry.forEach(function(entry) {
 
             // Gets the body of the webhook event
@@ -25,21 +33,21 @@ export let postWebhook = (req, res) =>{
             // console.log(webhook_event);
             
         // Add database in mongoose
-            messenger.findOne({id_messages: "1234"}, function(err, res) {
-                if (err) {
-                    console.log(err);
-                }else {
-                    // console.log(res)
-                    // var newMessage = new messenger({
-                    //     message: {text: mess}, 
-                    //     sender_id: sender_id, 
-                    //     recipient_id: recipient_id, 
-                    //     timestamp: timestamp});
-                    // newMessage.save();
-                    console.log('update!!!!!!!!!');
+            // messenger.findOne({id_messages: "1234"}, function(err, res) {
+            //     if (err) {
+            //         console.log(err);
+            //     }else {
+            //         console.log(res)
+            //         var newMessage = new messenger({
+            //             message: {text: mess}, 
+            //             sender_id: sender_id, 
+            //             recipient_id: recipient_id, 
+            //             timestamp: timestamp});
+            //         newMessage.save();
+            //         console.log('update!!!!!!!!!');
                     
-                }
-            })
+            //     }
+            // })
             
 
             // Get the sender PSID
