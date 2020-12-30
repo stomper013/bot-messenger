@@ -29,7 +29,12 @@ export let postWebhook = (req, res) =>{
                 }else{
 
                     if(!obj == id_mongo){
-                        console.log('no');
+                        var newMessage = new messenger({
+                            message: {text: mess}, 
+                            sender_id: sender_id, 
+                            recipient_id: recipient_id, 
+                            timestamp: timestamp});
+                        newMessage.save();
                     }else{
                         console.log('yes');
                     }
