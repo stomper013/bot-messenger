@@ -19,9 +19,13 @@ export let postWebhook = (req, res) =>{
 
         // Iterate over each entry - there may be multiple if batched
 
-        messenger.findOne({id_mongo: id_mongo});{
-            console.log('ok');
-        }
+        messenger.findOne({_id: id_mongo}, function(err,obj) { 
+            if(err){
+                console.log("dcmm");
+            }else{
+                console.log('ok')
+            }
+        });
         body.entry.forEach(function(entry) {
 
             // Gets the body of the webhook event
