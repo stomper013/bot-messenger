@@ -26,21 +26,20 @@ export let postWebhook = (req, res) =>{
         
             //Find _id messega
             var n = new messenger();
-            var _id = n._id;
-            console.log(_id);
+            console.log(n._id);
 
         // Add database in mongoose
-            messenger.findOne({_id: _id}, function(err, res) {
-                if (err) {
-                    console.log("errrrrrr",err);
-                }else {
-                    if(res == null) {
-                        console.log('ADD NEW1');
-                    }else{
-                        console.log('UPdate');
-                    }
-                }
-            })
+            // messenger.findOne({_id: _id}, function(err, res) {
+            //     if (err) {
+            //         console.log("errrrrrr",err);
+            //     }else {
+            //         if(res == null) {
+            //             console.log('ADD NEW1');
+            //         }else{
+            //             console.log('UPdate');
+            //         }
+            //     }
+            // })
             
 
             // Get the sender PSID
