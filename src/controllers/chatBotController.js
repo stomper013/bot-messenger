@@ -1,6 +1,6 @@
 require("dotenv").config();
 import request from "request";
-import messenger, { find } from "../model/messenger";
+import messenger from "../model/messenger";
 
 
 export let postWebhook = (req, res) =>{
@@ -24,23 +24,29 @@ export let postWebhook = (req, res) =>{
             // console.log(webhook_event);
             
         // Add database in mongoose
-            messenger.findOneAndUpdate({sender_id: sender_id}, 
-                {mess,
-                sender_id,
-                recipient_id,
-                timestamp},
-                {new: true}, 
-                function(err, res) {
-                if (err) {
-                    console.log("errrrrrr",err);
-                }else {
-                    if(res == null) {
-                        console.log('ADD NEW1');
-                    }else{
-                        console.log('UPdate');
-                    }
+        messenger.findOneAndUpdate({sender_id: sender_id}, 
+            {mess,
+            sender_id,
+            recipient_id,
+            timestamp},
+            {new: true}, 
+            function(err, res) {
+            if (err) {
+                console.log("errrrrrr",err);
+            }else {
+                if(res == null) {
+                    var newMessage = new messenger({
+                        message: {text: mess}, 
+                        sender_id: sender_id, 
+                        recipient_id: recipient_id, 
+                        timestamp: timestamp});
+                    newMessage.save();
+                    console.log('ADD NEW1');
+                }else{
+                    console.log('UPdate');
                 }
-            })
+            }
+        })
             
 
             // Get the sender PSID
