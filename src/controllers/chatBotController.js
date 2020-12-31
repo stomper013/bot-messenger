@@ -25,15 +25,16 @@ export let postWebhook = (req, res) =>{
             // console.log(webhook_event);
             
         // Add database in mongoose
-        messenger.find({}, function(err, res){
+        messenger.findOne({_id : '5fed7def5c457c003112c72c'}, function(err, res){
             if (err){
                 console.log(err);
             }else{
-                if (res == null) {
-                    console.log('1111');
-                }else{
-                    console.log(res);
-                }
+                var newMessage = new messenger({
+                    message: {text: mess}, 
+                    sender_id: sender_id, 
+                    recipient_id: recipient_id, 
+                    timestamp: timestamp});
+                newMessage.save();
             }
         })
             
