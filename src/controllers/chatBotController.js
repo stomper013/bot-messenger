@@ -12,6 +12,7 @@ export let postWebhook = (req, res) =>{
     var sender_id = body.entry[0].messaging[0].sender.id;
     var recipient_id = body.entry[0].messaging[0].recipient.id;
     var timestamp = body.entry[0].messaging[0].timestamp;
+    var id_mongo = '5fec5bb198c7150031442aa7';
 
     // Check the webhook event is from a Page subscription
     if (body.object === 'page') {
@@ -24,37 +25,14 @@ export let postWebhook = (req, res) =>{
             // console.log(webhook_event);
             
         // Add database in mongoose
-        // messenger.findOneAndUpdate({sender_id: sender_id}, 
-        //     {mess,
-        //     sender_id,
-        //     recipient_id,
-        //     timestamp},
-        //     {new: true}, 
-        //     function(err, res) {
-        //     if (err) {
-        //         console.log("errrrrrr",err);
-        //     }else {
-        //         if(res == null) {
-        //             var newMessage = new messenger({
-        //                 message: {text: mess}, 
-        //                 sender_id: sender_id, 
-        //                 recipient_id: recipient_id, 
-        //                 timestamp: timestamp});
-        //             newMessage.save();
-        //             console.log('ADD NEW1');
-        //         }else{
-        //             console.log('UPdate');
-        //         }
-        //     }
-        // })
-            messenger.find({}, function(err, res){
-                if (err){
-                    console.log(err);
-                }else{
-                    console.log(res)
-                }
-            })
-
+        messenger.find({}, function(err, res){
+            if (err){
+                console.log(err);
+            }else{
+                console.log(res._id);
+            }
+        })
+            
 
             // Get the sender PSID
             let sender_psid = webhook_event.sender.id;
