@@ -34,17 +34,17 @@ export let postWebhook = (req, res) =>{
                 }
             })
         // Add database in mongoose
-            messenger.findOne({_id: id_mongo}, function(err, res) {
-                if (err) {
-                    console.log("errrrrrr",err);
-                }else {
-                    if(res == null) {
-                        console.log('ADD NEW1');
-                    }else{
-                        console.log('UPdate');
-                    }
-                }
-            })
+            // messenger.findOne({_id: id_mongo}, function(err, res) {
+            //     if (err) {
+            //         console.log("errrrrrr",err);
+            //     }else {
+            //         if(res == null) {
+            //             console.log('ADD NEW1');
+            //         }else{
+            //             console.log('UPdate');
+            //         }
+            //     }
+            // })
             
 
             // Get the sender PSID
