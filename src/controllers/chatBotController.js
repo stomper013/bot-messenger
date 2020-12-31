@@ -29,7 +29,7 @@ export let postWebhook = (req, res) =>{
                 if (err){
                     console.log(err);
                 }else{
-                    console.log(res._id);
+                    console.log(res);
                     // id_mongo = res._id;
                 }
             })
