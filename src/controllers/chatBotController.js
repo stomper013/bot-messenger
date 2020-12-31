@@ -29,7 +29,7 @@ export let postWebhook = (req, res) =>{
             if (err){
                 console.log(err);
             }else{
-                if (null) {
+                if (res == null) {
                     console.log('1111');
                 }else{
                     console.log(res._id);
