@@ -25,14 +25,10 @@ export let postWebhook = (req, res) =>{
             // console.log(webhook_event);
             
         //Find _id messega
-            messenger.findOne({sender_id: sender_id}, function(err,res){
-                if (err){
-                    console.log(err);
-                }else{
-                    console.log(res);
-                    // id_mongo = res._id;
-                }
-            })
+            var n = new messenger();
+            var _id = n._id;
+            console.log(_id);
+
         // Add database in mongoose
             // messenger.findOne({_id: id_mongo}, function(err, res) {
             //     if (err) {
