@@ -29,7 +29,7 @@ export let postWebhook = (req, res) =>{
                 if (err) {
                     console.log(err);
                 }else {
-                    if(res?._id != id_mongo){
+                    if(res._id != id_mongo){
                         console.log('ok')
                     }else{
                         console.log('no')
