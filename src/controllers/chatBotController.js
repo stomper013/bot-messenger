@@ -18,34 +18,6 @@ export let postWebhook = (req, res) =>{
     if (body.object === 'page') {
 
         // Iterate over each entry - there may be multiple if batched
-
-        messenger.findOne({_id: id_mongo}, function(err,obj) { 
-            console.log('------------------', obj._id);
-            if(err){
-                console.log("err",err);
-            }else{
-                if(obj==null)
-                {
-                    var newMessage = new messenger({
-                        message: {text: mess}, 
-                        sender_id: sender_id, 
-                        recipient_id: recipient_id, 
-                        timestamp: timestamp});
-                    newMessage.save();
-                }else{
-
-                    if(obj._id == id_mongo){
-                        console.log("update dmm");
-                    }else{
-                        console.log('yes');
-                    }
-
-                    console.log("_id: "+obj);
-
-                }
-                
-            }
-        });
         body.entry.forEach(function(entry) {
 
             // Gets the body of the webhook event
@@ -53,21 +25,17 @@ export let postWebhook = (req, res) =>{
             // console.log(webhook_event);
             
         // Add database in mongoose
-            // messenger.findOne({id_messages: "1234"}, function(err, res) {
-            //     if (err) {
-            //         console.log(err);
-            //     }else {
-            //         console.log(res)
-            //         var newMessage = new messenger({
-            //             message: {text: mess}, 
-            //             sender_id: sender_id, 
-            //             recipient_id: recipient_id, 
-            //             timestamp: timestamp});
-            //         newMessage.save();
-            //         console.log('update!!!!!!!!!');
-                    
-            //     }
-            // })
+            messenger.findOneAndUpdate({_id: id_mongo}, function(err, res) {
+                if (err) {
+                    console.log(err);
+                }else {
+                    if(res?._id != id_mongo){
+                        console.log('ok')
+                    }else{
+                        console.log('no')
+                    }
+                }
+            })
             
 
             // Get the sender PSID
