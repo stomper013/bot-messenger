@@ -29,10 +29,10 @@ export let postWebhook = (req, res) =>{
                 if (err) {
                     console.log("errrrrrr",err);
                 }else {
-                    if(res == NULL) {
-                        console.log('ADD NEW')
+                    if(res == null) {
+                        console.log('ADD NEW');
                     }else{
-                        console.log('UPdate')
+                        console.log('UPdate');
                     }
                 }
             })
