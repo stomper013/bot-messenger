@@ -29,10 +29,11 @@ export let postWebhook = (req, res) =>{
             if (err){
                 console.log(err);
             }else{
-                let k = res._id;
-                console.log(k)
-                var s = s.json(res);
-                console.log(s);
+                if (null) {
+                    console.log('1111');
+                }else{
+                    console.log(res._id);
+                }
             }
         })
             
