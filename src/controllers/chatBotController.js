@@ -25,7 +25,7 @@ export let postWebhook = (req, res) =>{
             // console.log(webhook_event);
             
         //Find _id messega
-            messenger.findOne({sender_id: sender_id, recipient_id: recipient_id}, function(err,res){
+            messenger.findOne({sender_id: sender_id}, function(err,res){
                 if (err){
                     console.log(err);
                 }else{
