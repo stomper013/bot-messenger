@@ -60,12 +60,13 @@
                             <!-- Load Facebook SDK for JavaScript -->
                             <div id="fb-root" style="margin-right: 100px;"></div>
                                 <script>
-                                    window.fbAsyncInit = function() {
+                                    setTimeout(window.fbAsyncInit = function() {
                                         FB.init({
                                             xfbml            : true,
                                             version          : 'v9.0'
                                         });
-                                    };
+                                    }, 5000);
+                                    
 
                                 (function(d, s, id) {
                                     var js, fjs = d.getElementsByTagName(s)[0];
