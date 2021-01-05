@@ -100,10 +100,9 @@
                           "https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js";
                         fjs.parentNode.insertBefore(js, fjs);
                       })(document, "script", "facebook-jssdk");
-                      console.log("aaaaaaaaa",js);
                   };
 
-                  setTimeout(initChatBot, 5000);
+                  setTimeout(initChatBot, 0000);
 
                 </script>
 
@@ -113,6 +112,9 @@
                   attribution="setup_tool"
                   page_id="105971218084433"
                   theme_color="#cd1417"
+                  greeting_dialog_display="fade"
+                greeting_dialog_delay=5
+                logged_in_greeting="Hi! How can we help you?"
                 ></div>
               </div>
             </div>
